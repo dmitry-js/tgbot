@@ -3,11 +3,30 @@ import config from 'config'
 import { createReadStream } from 'fs'
 
 class OpenAI {
+  roles = {
+    ASSISTANT: 'assistant',
+    USER: 'user',
+    SYSTEM: 'system'
+  }
+
   constructor (apiKey) {
     const configuration = new Configuration({
       apiKey
     })
     this.openAI = new OpenAIApi(configuration)
+  }
+
+  async chat (messages) {
+    try {
+      const response = await this.openAI.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages
+      })
+
+      return response.data.choices[0].message
+    } catch (e) {
+      console.error(`Error on gpt chat: ${e.message}`)
+    }
   }
 
   async transcription (filepath) {

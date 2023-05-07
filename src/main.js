@@ -21,9 +21,13 @@ bot.on(message('voice'), async ctx => {
     const userId = await ctx.message.from.id
     const oggPath = await ogg.create({ url: link.href, filename: userId })
     const mp3Path = await ogg.toMP3({ url: oggPath, filename: userId })
-    const text = await openAI.transcription(mp3Path)
 
-    await ctx.reply(text ?? 'Unable to transcribe the voice message.')
+    const text = await openAI.transcription(mp3Path)
+    const messages = [{ role: openAI.roles.USER, content: text }]
+    const response = await openAI.chat(messages)
+
+    await ctx.reply(code(`Your request: ${text}`))
+    await ctx.reply(response.content)
   } catch (e) {
     console.error(`Error on voice message: ${e.message}`)
   }
