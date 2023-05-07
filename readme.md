@@ -4,4 +4,4 @@ Demo project
 
 ## Project setup
 
-Create `config/default.json` and set `TG_TOKEN`
+Create `config/default.json`. Set `TG_TOKEN` and `OPENAI_API_KEY` 
