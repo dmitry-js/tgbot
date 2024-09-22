@@ -1,6 +1,4 @@
-# GPT Telegram Bot
-
-Demo project
+# Chat GPT Telegram Bot
 
 ## Project setup
 
